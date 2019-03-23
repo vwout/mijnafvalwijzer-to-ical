@@ -43,6 +43,7 @@ cal.add("prodid", "-//{0}//NL".format(sys.argv[0]))
 cal.add("version", "2.0")
 cal.add("name", "Afvalkalender")
 cal.add("x-wr-calname", "Afvalkalender")
+cal.add("x-wr-timezone", "Europe/Amsterdam")
 cal.add("description", aw.title.string)
 cal.add("url", url)
 
