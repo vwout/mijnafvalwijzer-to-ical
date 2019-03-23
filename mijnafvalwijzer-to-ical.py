@@ -65,6 +65,7 @@ for item in aw.find_all("a", "wasteInfoIcon textDecorationNone"):
       event.add("dtstart", item_date)
       event.add("dtend", item_date + timedelta(1))
       event.add("summary", "Afval - {0}".format(item_descr.replace("\,", ",")))
+      event.add("description", item_descr.replace("\,", ","))
       event.add_component(alarm)
 
       cal.add_component(event)
