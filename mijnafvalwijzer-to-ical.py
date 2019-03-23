@@ -31,28 +31,28 @@ housenumber = sys.argv[2]
 waste_types = []
 
 if len(sys.argv) >= 4:
-  waste_types = sys.argv[3].split(',')
+  waste_types = sys.argv[3].split(",")
 
 url = "https://www.mijnafvalwijzer.nl/nl/{0}/{1}/".format(postal_code, housenumber)
 aw_html = requests.get(url)
 
-aw = BeautifulSoup(aw_html.text, 'html.parser')
+aw = BeautifulSoup(aw_html.text, "html.parser")
 
 cal = Calendar()
-cal.add('prodid', "-//{0}//NL".format(sys.argv[0]))
-cal.add('version', '2.0')
-cal.add('name', 'Afvalkalender')
-cal.add('x-wr-calname', 'Afvalkalender')
-cal.add('description', aw.title.string)
-cal.add('url', url)
+cal.add("prodid", "-//{0}//NL".format(sys.argv[0]))
+cal.add("version", "2.0")
+cal.add("name", "Afvalkalender")
+cal.add("x-wr-calname", "Afvalkalender")
+cal.add("description", aw.title.string)
+cal.add("url", url)
 
 alarm = Alarm()
-alarm.add('action', 'display')
-alarm.add('trigger', value=timedelta(-1))
+alarm.add("action", "DISPLAY")
+alarm.add("trigger", value=timedelta(-1))
 
 for item in aw.find_all("a", "wasteInfoIcon textDecorationNone"):
     # Get the waste type from the fragment in the anchors href
-    waste_type = item['href'].replace('#', '').replace('waste-', '')
+    waste_type = item["href"].replace("#", "").replace("waste-", "")
 
     if not waste_types or waste_type in waste_types:
       raw_d = re.search("(\w+) (\d+) (\w+)", item.p.text)
@@ -60,11 +60,11 @@ for item in aw.find_all("a", "wasteInfoIcon textDecorationNone"):
       item_descr = item.p.span.text
 
       event = Event()
-      event.add('uid', "{0}-{1}".format(item_date.timetuple().tm_yday, waste_type))
-      event.add('dtstamp', datetime.now())
-      event.add('dtstart', item_date)
-      event.add('dtend', item_date + timedelta(1))
-      event.add('summary', "Afval: {0}".format(item_descr))
+      event.add("uid", "{0}-{1}-{2}".format(datetime.now().year, item_date.timetuple().tm_yday, waste_type))
+      event.add("dtstamp", datetime.now())
+      event.add("dtstart", item_date)
+      event.add("dtend", item_date + timedelta(1))
+      event.add("summary", "Afval - {0}".format(item_descr.replace("\,", ",")))
       event.add_component(alarm)
 
       cal.add_component(event)
