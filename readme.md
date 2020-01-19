@@ -27,6 +27,10 @@ Voorbeeld:
 
 
 Belangrijk: de uitvoer moet als UTF-8 worden opgeslagen voor gebruikt in veel iCal readers.
+Bij uitvoer in Windows kan het volgende powershell commando gebruikt worden:
+
+    $PSDefaultParameterValues['*:Encoding'] = 'utf8'
+
 
 ## Vereisten
 Python 3 met de packages `beautifulsoup4`, `requests`, `icalendar`.

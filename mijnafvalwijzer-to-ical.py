@@ -54,6 +54,9 @@ alarm.add("trigger", value=timedelta(-1))
 for item in aw.find_all("a", "wasteInfoIcon textDecorationNone"):
     # Get the waste type from the fragment in the anchors href
     waste_type = item["href"].replace("#", "").replace("waste-", "")
+    if waste_type == "" or waste_type == "javascript:void(0);":
+      if item.p.has_attr("class"):
+        waste_type = item.p["class"][0]
 
     if not waste_types or waste_type in waste_types:
       raw_d = re.search("(\w+) (\d+) (\w+)", item.p.text)
