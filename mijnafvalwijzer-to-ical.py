@@ -61,7 +61,7 @@ for item in aw.find_all("a", "wasteInfoIcon textDecorationNone"):
     if not waste_types or waste_type in waste_types:
       raw_d = re.search("(\w+) (\d+) (\w+)", item.p.text)
       item_date = date(datetime.now().year, months.get(raw_d.group(3), 0), int(raw_d.group(2)))
-      item_descr = item.p.span.text
+      item_descr = item.find("span", {"class": "afvaldescr"}).text
 
       event = Event()
       event.add("uid", "{0}-{1}-{2}".format(datetime.now().year, item_date.timetuple().tm_yday, waste_type))
