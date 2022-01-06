@@ -28,12 +28,18 @@ if len(sys.argv) < 2:
 
 postal_code = sys.argv[1]
 housenumber = sys.argv[2]
+housenumber_suffix = ""
 waste_types = []
 
 if len(sys.argv) >= 4:
   waste_types = sys.argv[3].split(",")
 
-url = "https://www.mijnafvalwijzer.nl/nl/{0}/{1}/".format(postal_code, housenumber)
+housenumber_re = re.search(r"^(\d+)(\D*)$", housenumber)
+if housenumber_re.group():
+  housenumber = housenumber_re.group(1)
+  housenumber_suffix = housenumber_re.group(2) or ""
+
+url = "https://www.mijnafvalwijzer.nl/nl/{0}/{1}/{2}".format(postal_code, housenumber, housenumber_suffix)
 aw_html = requests.get(url)
 
 aw = BeautifulSoup(aw_html.text, "html.parser")

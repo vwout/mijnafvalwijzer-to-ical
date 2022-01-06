@@ -8,9 +8,9 @@ Voor het gemak kan er ook een Docker image worden gemaakt.
 
 ## Gebruik
 Het script heeft 3 argumenten, waarvan de eerste 2 verplicht zijn:
-  1. Postcode
-  - Huisnummer
-  - Comma-gescheiden lijst van afvalsoorten die in de iCal feed terecht moeten komen. De beschikbare waarden zijn:
+  1. Postcode, cijfers en letters aan elkaar geschreven; bijvoorbeeld 1234AB
+  2. Huisnummer, nummer en eventuele toevoegingen aan elkaar geschreven, zonder eventuele koppeltekens; bijvoorbeeld 106A 
+  3. Comma-gescheiden lijst van afvalsoorten die in de iCal feed terecht moeten komen. De beschikbare waarden zijn:
     - `gft`: Voor groente, fruit en tuinafval
     - `glas`: Voor glas
     - `grofvuil`: Voor grofvuil
@@ -30,7 +30,6 @@ Belangrijk: de uitvoer moet als UTF-8 worden opgeslagen voor gebruikt in veel iC
 Bij uitvoer in Windows kan het volgende powershell commando gebruikt worden:
 
     $PSDefaultParameterValues['*:Encoding'] = 'utf8'
-
 
 ## Vereisten
 Python 3 met de packages `beautifulsoup4`, `requests`, `icalendar`.
