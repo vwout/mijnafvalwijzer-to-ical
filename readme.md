@@ -33,3 +33,9 @@ Bij uitvoer in Windows kan het volgende powershell commando gebruikt worden:
 
 ## Vereisten
 Python 3 met de packages `beautifulsoup4`, `requests`, `icalendar`.
+
+## Docker
+De gemakkelijkste manier om het script te gebruik is via Docker, als je natuurlijk een Docker omgeving hebt.
+Dit kan via het volgende commando:
+
+    docker run --rm vwout/mijnafvalwijzer-to-ical 1012RJ 147 glas,pd
